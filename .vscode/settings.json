@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true, // 保存時にフォーマット
+  "prettier.singleQuote": true, // シングルクォートを使用
+  "prettier.tabWidth": 2, // タブの幅
+  "prettier.useTabs": false // スペースによるインデントを使用
+  // 他にもPrettierのオプションを自由に追加可能
+}

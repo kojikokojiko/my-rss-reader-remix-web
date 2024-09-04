@@ -4,8 +4,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
-import "./tailwind.css";
+} from '@remix-run/react';
+import './tailwind.css';
+
+import { Button } from '~/components/ui/button';
+import { Separator } from '~/components/ui/separator';
+import { ScrollArea } from '~/components/ui/scroll-area';
+import { Card, CardContent, CardFooter } from '~/components/ui/card';
+import { Avatar, AvatarImage, AvatarFallback } from '~/components/ui/avatar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,7 +23,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
