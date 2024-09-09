@@ -8,19 +8,12 @@ import prisma from '~/db/client';
 import { RssFeed } from '~/types/rssFeed';
 import PlusIcon from '~/components/icons/plus';
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: 'New Remix App' },
-    { name: 'description', content: 'Welcome to Remix!' },
-  ];
-};
-
 export const loader: LoaderFunction = async () => {
   const rssFeeds: RssFeed[] = await prisma.entries.findMany();
   return json(rssFeeds);
 };
 
-export default function Index() {
+export default function MyFeed() {
   const rssFeeds = useLoaderData<RssFeed[]>();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const handleToggleView = () => {
