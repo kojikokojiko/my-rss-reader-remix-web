@@ -7,10 +7,10 @@ import { Button } from '~/components/ui/button';
 import RssIcon from '~/components/icons/rss';
 
 interface SidebarProps {
-  rssFeeds: RssFeed[];
+  folders: { id: string; name: string; title: string }[];
 }
-
-export default function Sidebar() {
+export default function Sidebar({ folders }: SidebarProps) {
+  console.log('Folders:', folders);
   return (
     <aside className="hidden w-64 flex-col border-r bg-background sm:flex">
       <ScrollArea className="w-64 border-r">
@@ -21,9 +21,9 @@ export default function Sidebar() {
           </div>
           {/* <ScrollArea className="flex-1 overflow-auto "> */}
           <div className="grid gap-1 p-2">
-            {/* {rssFeeds.map((feed) => (
-              <FeedButton key={feed.id} label={feed.title} id={feed.id} />
-            ))} */}
+            {folders.map((folder) => (
+              <FeedButton key={folder.id} label={folder.name} id={folder.id} />
+            ))}
           </div>
           {/* </ScrollArea> */}
         </nav>

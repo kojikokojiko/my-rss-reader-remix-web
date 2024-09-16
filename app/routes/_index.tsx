@@ -16,12 +16,12 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async () => {
-  const rssFeeds: RssFeed[] = await prisma.entries.findMany();
+  const rssFeeds = await prisma.entries.findMany();
   return json(rssFeeds);
 };
 
 export default function Index() {
-  const rssFeeds = useLoaderData<RssFeed[]>();
+  const rssFeeds = useLoaderData<typeof loader>();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const handleToggleView = () => {
     setViewMode((prevMode) => (prevMode === 'grid' ? 'list' : 'grid'));

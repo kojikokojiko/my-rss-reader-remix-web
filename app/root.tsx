@@ -14,14 +14,22 @@ import type { LoaderFunction } from '@remix-run/node';
 import prisma from '~/db/client';
 import { json } from '@remix-run/node';
 
-// Loader関数を定義
 export const loader: LoaderFunction = async () => {
-  const rssFeeds: RssFeed[] = await prisma.entries.findMany();
-  return json({ rssFeeds });
+  try {
+    const folders = await prisma.my_feeds_folders.findMany();
+    console.log('Fetched folders:', folders); // デバッグ用に確認
+    return json({ folders });
+  } catch (error) {
+    console.error('Error fetching folders:', error); // エラーハンドリング
+    return json({ folders: [] }); // デフォルト値を返す
+  }
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  // const { rssFeeds } = useLoaderData<{ rssFeeds: RssFeed[] }>();
+  const data = useLoaderData<typeof loader>(); // Loaderデータを取得
+
+  // デフォルト値を設定してエラーを防止
+  const folders = data?.folders ?? [];
   return (
     <html lang="en">
       <head>
@@ -34,7 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="flex min-h-screen w-full flex-col">
           <Header />
           <div className="flex flex-1 sm:gap-4 sm:py-4 sm:pl-14">
-            <Sidebar />
+            <Sidebar folders={folders} />
             <main className="flex-1 p-4 sm:p-6">{children}</main>
           </div>
         </div>
