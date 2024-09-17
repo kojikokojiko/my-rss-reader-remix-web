@@ -1,3 +1,7 @@
+# DBDiagram
+
+https://dbdiagram.io/d/66dee9e4550cd927ea9f9bc2
+
 # Welcome to Remix!
 
 - 📖 [Remix docs](https://remix.run/docs)

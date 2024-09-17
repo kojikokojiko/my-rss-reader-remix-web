@@ -10,9 +10,9 @@ import './tailwind.css';
 import Header from '~/components/header/header';
 import Sidebar from '~/components/sidebar/sidebar';
 import type { RssFeed } from '~/types/rssFeed';
-import type { LoaderFunction } from '@remix-run/node';
+import type { LoaderFunction, ActionFunction } from '@remix-run/node';
 import prisma from '~/db/client';
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 
 export const loader: LoaderFunction = async () => {
   try {
@@ -23,6 +23,21 @@ export const loader: LoaderFunction = async () => {
     console.error('Error fetching folders:', error); // エラーハンドリング
     return json({ folders: [] }); // デフォルト値を返す
   }
+};
+export const action: ActionFunction = async ({ request }) => {
+  // フォームデータを取得
+  const form = await request.formData();
+  const folderName = form.get('folder-name');
+  if (typeof folderName !== 'string' || folderName.trim() === '') {
+    return json({ error: 'Folder name is required' }, { status: 400 });
+  }
+  await prisma.my_feeds_folders.create({
+    data: {
+      name: folderName.trim(),
+    },
+  });
+
+  return json({ success: true });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
