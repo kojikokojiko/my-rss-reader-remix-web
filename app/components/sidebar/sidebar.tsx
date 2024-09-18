@@ -28,14 +28,14 @@ export default function Sidebar({ folders }: SidebarProps) {
       <ScrollArea className="w-64 border-r">
         <nav className="flex flex-col gap-2 p-4">
           <SidebarNav />
-          <div className="flex justify-between items-center text-xs font-medium text-muted-foreground">
-            Subscribed Feeds
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-lg font-semibold">YOUR FEEDS</h3>
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={() => setIsModalOpen(true)}
             >
-              Add Folder
+              ＋
             </Button>
           </div>
           {/* <ScrollArea className="flex-1 overflow-auto "> */}
@@ -94,7 +94,7 @@ interface FeedButtonProps {
 
 function FeedButton({ label, id }: FeedButtonProps) {
   return (
-    <Link to={`/my-feed/${id}`}>
+    <Link to={`/my-folder/${id}`}>
       <Button
         variant="ghost"
         size="sm"
