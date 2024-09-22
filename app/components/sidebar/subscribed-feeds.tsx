@@ -6,21 +6,10 @@ import { Link, useLoaderData } from '@remix-run/react';
 import type { MetaFunction, LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import prisma from '~/db/client';
-import { RssFeed } from '~/types/rssFeed';
+import { Entry } from '~/types/entry';
 
-// export const loader: LoaderFunction = async () => {
-//   try {
-//     const folders = await prisma.entries.findMany();
-//     console.log(folders); // デバッグ用に確認
-//     console.log('nul'); // デバッグ用に確認
-//     return json({ folders });
-//   } catch (err) {
-//     console.error('Error fetching folders:', err); // エラーを表示
-//     return json({ folders: [] });
-//   }
-// };
 export const loader: LoaderFunction = async () => {
-  const rssFeeds: RssFeed[] = await prisma.entries.findMany();
+  const rssFeeds: Entry[] = await prisma.entries.findMany();
   return json(rssFeeds);
 };
 
@@ -30,7 +19,7 @@ export const loader: LoaderFunction = async () => {
 
 export default function SubscribedFeeds() {
   // const data = useLoaderData(); // 型定義を明示的に
-  const rssFeeds = useLoaderData<RssFeed[]>();
+  const rssFeeds = useLoaderData<Entry[]>();
   // //データの表示確認 (デバッグ用)
   console.log(rssFeeds);
   // const { folders } = data || { folders: [] }; // デフォルト値

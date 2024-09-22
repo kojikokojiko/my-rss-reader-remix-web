@@ -102,11 +102,14 @@ function handleBrowserRequest(
         context={remixContext}
         url={request.url}
         abortDelay={ABORT_DELAY}
-      />,
+        />,
       {
         onShellReady() {
           shellRendered = true;
           const body = new PassThrough();
+
+
+          
           const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");

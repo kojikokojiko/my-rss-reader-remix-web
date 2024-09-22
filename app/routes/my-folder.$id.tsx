@@ -1,25 +1,35 @@
-import { useState } from 'react';
-import type { MetaFunction, LoaderFunction } from '@remix-run/node';
-import { useLoaderData, useParams } from '@remix-run/react';
+import { useState, useEffect } from 'react';
+import type { LoaderFunction } from '@remix-run/node';
+import { useLoaderData, useParams, useOutletContext } from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardFooter } from '~/components/ui/card';
 import prisma from '~/db/client';
-import { RssFeed } from '~/types/rssFeed';
 import PlusIcon from '~/components/icons/plus';
+import { Entry } from '~/types/entry';
 
 export const loader: LoaderFunction = async () => {
-  const rssFeeds: RssFeed[] = await prisma.entries.findMany();
-  return json(rssFeeds);
+  const entries = await prisma.entries.findMany();
+  return json(entries);
 };
 
 export default function MyFolder() {
-  const { id: folderId } = useParams();
-  const rssFeeds = useLoaderData<RssFeed[]>();
+  // const { setFolderId } = useOutletContext<{
+  //   setFolderId: (id: string) => void;
+  // }>();
+  const folderId = useParams().id;
+  const entries = useLoaderData<typeof loader>();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const handleToggleView = () => {
     setViewMode((prevMode) => (prevMode === 'grid' ? 'list' : 'grid'));
   };
+
+  // useEffect(() => {
+  //   // Only set the folder ID if it's defined
+  //   if (folderId) {
+  //     setFolderId(folderId);
+  //   }
+  // }, [setFolderId, folderId]);
 
   return (
     <main className="flex-grow overflow-auto p-6">
@@ -44,6 +54,7 @@ export default function MyFolder() {
             industry.
           </p>
         </div>
+
         <div
           className={`grid gap-4 ${
             viewMode === 'grid'
@@ -51,10 +62,10 @@ export default function MyFolder() {
               : 'flex flex-col items-center'
           }`}
         >
-          {rssFeeds.map((feed) => (
+          {entries.map((entry: Entry) => (
             <a
-              href={feed.link || undefined}
-              key={feed.id}
+              href={entry.link || undefined}
+              key={entry.id}
               target="_blank"
               rel="noopener noreferrer"
               className="no-underline text-inherit"
@@ -89,14 +100,14 @@ export default function MyFolder() {
                     }`}
                   >
                     <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
-                      {feed.title}
+                      {entry.title}
                     </h3>
                     <p className="text-muted-foreground line-clamp-3">
-                      {feed.description}
+                      {entry.description}
                     </p>
                   </div>
                 </CardContent>
-                {feed.pubDate && (
+                {entry.pubDate && (
                   <CardFooter
                     className={`${
                       viewMode === 'list'
@@ -105,7 +116,7 @@ export default function MyFolder() {
                     }`}
                   >
                     <div className="text-sm text-muted-foreground">
-                      {new Date(feed.pubDate).toLocaleDateString()}
+                      {new Date(entry.pubDate).toLocaleDateString()}
                     </div>
                   </CardFooter>
                 )}

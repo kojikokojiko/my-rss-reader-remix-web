@@ -25,6 +25,16 @@ export default function SidebarNav() {
         <FolderIcon className="h-4 w-4" />
         Categories
       </Button>
+      <Link to="/media">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="justify-start gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
+        >
+          <HomeIcon className="h-4 w-4" />
+          All Feeds
+        </Button>
+      </Link>
       <Separator className="my-2" />
     </>
   );

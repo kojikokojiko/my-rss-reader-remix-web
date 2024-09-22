@@ -9,7 +9,7 @@ import {
 import './tailwind.css';
 import Header from '~/components/header/header';
 import Sidebar from '~/components/sidebar/sidebar';
-import type { RssFeed } from '~/types/rssFeed';
+import type { Entry } from '~/types/entry';
 import type { LoaderFunction, ActionFunction } from '@remix-run/node';
 import prisma from '~/db/client';
 import { json, redirect } from '@remix-run/node';
@@ -17,10 +17,10 @@ import { json, redirect } from '@remix-run/node';
 export const loader: LoaderFunction = async () => {
   try {
     const folders = await prisma.my_feeds_folders.findMany();
-    console.log('Fetched folders:', folders); // デバッグ用に確認
+    // console.log('Fetched folders:', folders); // デバッグ用に確認
     return json({ folders });
   } catch (error) {
-    console.error('Error fetching folders:', error); // エラーハンドリング
+    // console.error('Error fetching folders:', error); // エラーハンドリング
     return json({ folders: [] }); // デフォルト値を返す
   }
 };
