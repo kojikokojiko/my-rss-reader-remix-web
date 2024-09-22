@@ -43,31 +43,7 @@ export default function AddFeed() {
         );
       }
 
-      const { xmlText } = await response.json();
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlText, 'application/xml');
-
-      const feed = {
-        feed: {
-          title:
-            xmlDoc.querySelector(media.feed_title_selector)?.textContent ||
-            'No title',
-          description:
-            xmlDoc.querySelector(media.feed_desc_selector)?.textContent ||
-            'No description',
-        },
-        items: Array.from(xmlDoc.querySelectorAll(media.item_selector)).map(
-          (item) => ({
-            title: item.querySelector(media.item_title_selector)?.textContent,
-            link: item.querySelector(media.item_link_selector)?.textContent,
-            description: item.querySelector(media.item_desc_selector)
-              ?.textContent,
-            pubDate: item.querySelector(media.item_pubdate_selector)
-              ?.textContent,
-          })
-        ),
-      };
-
+      const { feed } = await response.json();
       setFeedData(feed);
     } catch (err: any) {
       setError(`Failed to fetch RSS feed: ${err.message}`);
