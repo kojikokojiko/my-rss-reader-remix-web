@@ -30,6 +30,7 @@
     "lucide-react": "^0.438.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "remix": "^2.12.1",
     "tailwind-merge": "^2.5.2",
     "url": "^0.11.4"
   },

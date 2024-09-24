@@ -1,4 +1,4 @@
-import { Form, Link, useLoaderData } from '@remix-run/react';
+import { Form, Link, useLoaderData, useParams } from '@remix-run/react';
 import { json, LoaderFunction, ActionFunction } from '@remix-run/node';
 import { Button } from '~/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '~/components/ui/card';

@@ -60,6 +60,7 @@ model media {
   hostname             String  @unique
   feed_title_selector  String
   feed_desc_selector   String 
+  feed_last_updated_selector String @default("updated")
   item_selector        String  
   item_title_selector  String
   item_link_selector   String

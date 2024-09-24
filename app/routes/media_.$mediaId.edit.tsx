@@ -29,6 +29,9 @@ export const action: ActionFunction = async ({ request, params }) => {
   const hostname = formData.get('hostname') as string;
   const feedTitleSelector = formData.get('feed_title_selector') as string;
   const feedDescSelector = formData.get('feed_desc_selector') as string;
+  const feedLastUpdatedSelector = formData.get(
+    'feed_last_updated_selector'
+  ) as string;
   const itemSelector = formData.get('item_selector') as string;
   const itemTitleSelector = formData.get('item_title_selector') as string;
   const itemLinkSelector = formData.get('item_link_selector') as string;
@@ -41,6 +44,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       hostname,
       feed_title_selector: feedTitleSelector,
       feed_desc_selector: feedDescSelector,
+      feed_last_updated_selector: feedLastUpdatedSelector,
       item_selector: itemSelector,
       item_title_selector: itemTitleSelector,
       item_link_selector: itemLinkSelector,
@@ -60,6 +64,7 @@ export default function EditMedia() {
     hostname: media.hostname,
     feed_title_selector: media.feed_title_selector,
     feed_desc_selector: media.feed_desc_selector,
+    feed_last_updated_selector: media.feed_last_updated_selector,
     item_selector: media.item_selector,
     item_title_selector: media.item_title_selector,
     item_link_selector: media.item_link_selector,
@@ -115,6 +120,17 @@ export default function EditMedia() {
                 value={formData.feed_desc_selector}
                 onChange={handleChange}
                 placeholder="e.g., .feed-description"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label>Feed Last Updated Selector</Label>
+              <Input
+                id="feed_last_updated_selector"
+                name="feed_last_updated_selector"
+                value={formData.feed_last_updated_selector}
+                onChange={handleChange}
+                placeholder="e.g., .feed-feed_last_updated_selector"
                 className="mt-1"
               />
             </div>

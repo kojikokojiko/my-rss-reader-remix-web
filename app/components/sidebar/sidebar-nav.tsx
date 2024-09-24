@@ -3,6 +3,8 @@ import HomeIcon from '~/components/icons/home';
 import FolderIcon from '~/components/icons/folder';
 import { Separator } from '~/components/ui/separator';
 import { Link } from '@remix-run/react';
+import MediaListIcon from '~/components/icons/media';
+import AllFeedsIcon from '../icons/all-feeds';
 
 export default function SidebarNav() {
   return (
@@ -14,24 +16,26 @@ export default function SidebarNav() {
           className="justify-start gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
         >
           <HomeIcon className="h-4 w-4" />
-          All Feeds
+          Trend
         </Button>
       </Link>
-      <Button
-        variant="ghost"
-        size="sm"
-        className="justify-start gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
-      >
-        <FolderIcon className="h-4 w-4" />
-        Categories
-      </Button>
       <Link to="/media">
         <Button
           variant="ghost"
           size="sm"
           className="justify-start gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
         >
-          <HomeIcon className="h-4 w-4" />
+          <MediaListIcon className="h-4 w-4" />
+          MediaList
+        </Button>
+      </Link>
+      <Link to="/all-feeds">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="justify-start gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
+        >
+          <AllFeedsIcon className="h-4 w-4" />
           All Feeds
         </Button>
       </Link>

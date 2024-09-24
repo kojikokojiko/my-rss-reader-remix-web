@@ -6,6 +6,7 @@ import { Link, Form, useActionData } from '@remix-run/react';
 import { Button } from '~/components/ui/button';
 import RssIcon from '~/components/icons/rss';
 import { useState, useRef, useEffect } from 'react';
+import FolderIcon from '../icons/folder';
 interface SidebarProps {
   folders: { id: string; name: string; title: string }[];
 }
@@ -29,7 +30,7 @@ export default function Sidebar({ folders }: SidebarProps) {
         <nav className="flex flex-col gap-2 p-4">
           <SidebarNav />
           <div className="flex justify-between items-center mb-2">
-            <h3 className="text-lg font-semibold">YOUR FEEDS</h3>
+            <h3 className="text-lg font-semibold">Folders</h3>
             <Button
               variant="outline"
               size="sm"
@@ -100,7 +101,7 @@ function FeedButton({ label, id }: FeedButtonProps) {
         size="sm"
         className="justify-start gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
       >
-        <RssIcon className="h-4 w-4" />
+        <FolderIcon className="h-4 w-4" />
         {label}
       </Button>
     </Link>
